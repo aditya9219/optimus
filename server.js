@@ -10,8 +10,8 @@ var MONGOLAB_URI = "mongodb://aditya9219:engineer001@ds131119.mlab.com:31119/db_
 MongoClient.connect(process.env.MONGOLAB_URI || MONGOLAB_URI, (err, database) => {
   if (err) return console.log(err)
   db = database
-  app.listen(3000, () => {
-    console.log('listening on 3000')
+  app.listen(process.env.PORT || 8080, () => {
+    console.log('listening')
   })
 })
 
