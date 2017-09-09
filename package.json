@@ -1,15 +1,16 @@
 {
-  "private": true,
-  "dependencies": {
-    "angular": "^1.3.12",
-    "todomvc-common": "^1.0.0",
-    "todomvc-app-css": "^1.0.1",
-    "angular-route": "^1.3.12",
-    "express": "~3.4.7",
-    "body-parser": "~1.13.1",
-    "mongoose": "~4.0.6"
+  "name": "optimus",
+  "version": "0.0.1",
+  "description": "Track the moods of the employees on daily basis",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "engines": {
-    "node": ">=0.10.25"
+  "author": "Optimus",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.0",
+    "express": "^4.15.4",
+    "mongodb": "^2.2.31"
   }
 }
