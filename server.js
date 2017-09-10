@@ -27,6 +27,7 @@ app.post('/mood', (req, res) => {
 	 console.log("countS is ", req.body.countS);
      var record = db.collection('mood').find({'date':req.date});
 	 if(record){
+	   console.log("in if")
 	   var countH = req.countH;
        var countS = req.countS;
 	   if(countH)
@@ -36,10 +37,11 @@ app.post('/mood', (req, res) => {
 	 }
 	 else
 	 {
+	   console.log("in else");
 	   db.collection('mood').save(req.body, (err, result) => {
-         if (err) return console.log(err)
+         if (err) return console.log("error1233",err)
          console.log('saved to database')
-         res.send({"success":"Ok"})
      })   
+	 res.end();
 }
 })
