@@ -12,7 +12,7 @@ MongoClient.connect(process.env.MONGOLAB_URI || MONGOLAB_URI, (err, database) =>
   if (err) return console.log(err)
   db = database
   app.listen(process.env.PORT || 5000, () => {
-    console.log('listening on process.env.PORT');
+    console.log('listening');
   })
 })
 
@@ -25,23 +25,30 @@ app.post('/mood', (req, res) => {
      console.log("the date is ",req.body.date);
 	 console.log("countH is ", req.body.countH);
 	 console.log("countS is ", req.body.countS);
-     var record = db.collection('mood').find({'date':req.date});
-	 if(record){
-	   console.log("in if")
-	   var countH = req.countH;
-       var countS = req.countS;
-	   if(countH)
-	       db.collection('mood').update({'date':req.date},{$set:{'countH':record.countH + countH}});
-	   else 
-	       db.collection('mood').update({'date':req.date},{$set:{'countC':record.countS + countS}});
-	 }
-	 else
-	 {
-	   console.log("in else");
-	   db.collection('mood').save(req.body, (err, result) => {
-         if (err) return console.log("error1233",err)
-         console.log('saved to database')
-     })   
-	 res.end();
-}
-})
+	 
+	 db.collection('mood').find({"date":req.body.date}).toArray((err, result) => {
+       if (err) return console.log(err)
+       console.log("result = ",result);
+	   if(result && result.length)
+       {
+	      var countH = req.body.countH;
+          var countS = req.body.countS;
+	      if(countH)
+		  {
+		      console.log("going to update countH", countH);
+	          db.collection('mood').update({"date":req.body.date},{$set:{"countH":result[0].countH + countH}});
+		  }
+	      else
+          {		  
+		      console.log("going to update countS", countS);
+	          db.collection('mood').update({"date":req.body.date},{$set:{"countS":result[0].countS + countS}});
+		  }
+       }
+       else
+	   {
+	      console.log("in else");
+	      db.collection('mood').insert(req.body);    
+       }	   
+    })
+	res.end();
+});
