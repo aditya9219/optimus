@@ -24,7 +24,7 @@ app.post('/mood', (req, res) => {
      console.log("the request is ", req.body);
      console.log("the date is ",req.body.date);
 	 console.log("countH is ", req.body.countH);
-	 console.log("countC is ", req.body.countC);
+	 console.log("countS is ", req.body.countS);
      var record = db.collection('mood').find({'date':req.date});
 	 if(record){
 	   var countH = req.countH;
@@ -32,7 +32,7 @@ app.post('/mood', (req, res) => {
 	   if(countH)
 	       db.collection('mood').update({'date':req.date},{$set:{'countH':record.countH + countH}});
 	   else 
-	       db.collection('mood').update({'date':req.date},{$set:{'countC':record.countC + countC}});
+	       db.collection('mood').update({'date':req.date},{$set:{'countC':record.countS + countS}});
 	 }
 	 else
 	 {
