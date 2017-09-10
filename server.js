@@ -16,7 +16,7 @@ MongoClient.connect(process.env.MONGOLAB_URI || MONGOLAB_URI, (err, database) =>
 })
 
 app.get('/', (req, res) => {
-  res.send('hello world')
+  res.send('hello world123')
 })
 
 app.post('/mood', (req, res) => {
