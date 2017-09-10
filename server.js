@@ -21,10 +21,11 @@ app.get('/', (req, res) => {
 })
 
 app.post('/mood', (req, res) => {
-     console.log("the date is ",req.date);
-	 console.log("countH is ", req.countH);
-	 console.log("countC is ", req.countC);
-     var record = db.collection.find({'date':req.date});
+     console.log("the request is ", req.body);
+     console.log("the date is ",req.body.date);
+	 console.log("countH is ", req.body.countH);
+	 console.log("countC is ", req.body.countC);
+     var record = db.collection('mood').find({'date':req.date});
 	 if(record){
 	   var countH = req.countH;
        var countS = req.countS;
