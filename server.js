@@ -20,10 +20,22 @@ app.get('/', (req, res) => {
 })
 
 app.post('/mood', (req, res) => {
-  db.collection('mood').save(req.body, (err, result) => {
-   if (err) return console.log(err)
-
-    console.log('saved to database')
-    res.redirect('/')
-  })
+     console.log("the request is ",req);
+     var record = db.collection.find({date:req.date});
+	 if(record){
+	   var countH = req.countH;
+       var countS = req.countS;
+	   if(countH)
+	       db.collection('mood').update({'date':req.date},{$set:{'countH':record.countH + countH}});
+	   else 
+	       db.collection('mood').update({'date':req.date},{$set:{'countC':record.countC + countC}});
+	 }
+	 else
+	 {
+	   db.collection('mood').save(req.body, (err, result) => {
+         if (err) return console.log(err)
+         console.log('saved to database')
+         res.redirect('/')
+     })   
+}
 })
