@@ -4,6 +4,7 @@ const MongoClient = require('mongodb').MongoClient;
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json());
 
 var MONGOLAB_URI = "mongodb://aditya9219:engineer001@ds131119.mlab.com:31119/db_aditya9219",db;
 
@@ -16,7 +17,7 @@ MongoClient.connect(process.env.MONGOLAB_URI || MONGOLAB_URI, (err, database) =>
 })
 
 app.get('/', (req, res) => {
-  res.send('hello world123')
+  res.send('hello world')
 })
 
 app.post('/mood', (req, res) => {
