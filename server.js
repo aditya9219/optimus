@@ -39,7 +39,7 @@ app.post('/mood', (req, res) => {
 	   db.collection('mood').save(req.body, (err, result) => {
          if (err) return console.log(err)
          console.log('saved to database')
-         res.redirect('/')
+         res.send({"success":"Ok"})
      })   
 }
 })
