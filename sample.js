@@ -28,3 +28,8 @@ var everyMonthFirstDayMidnight = scheduler.scheduleJob('0 0 1 * *',function(){  
 var  julySecondAt2pm= scheduler.scheduleJob('0 14 2 7 *',function(){  // Run on july second at 2pm
  console.log('it will Run on july second at 2pm');
 });
+
+/*Current time*/
+var  sep191230= schedule.scheduleJob('30 12 19 9 *',function(){  // Run on july second at 2pm
+ console.log('current time');
+});
