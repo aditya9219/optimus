@@ -1,0 +1,75 @@
+//understanding callback hell 
+
+//https://www.terlici.com/2015/10/28/solving-node-callback-hell-asyncjs.html 
+
+
+var async = require('async');
+
+/*waterfall model*/
+async.waterfall([
+    function (callback) {
+        console.log('First Step --> ');
+        callback(null, '1', '2');
+    },
+    function (arg1, arg2, callback) {
+        console.log('Second Step --> ' + arg1 + ' ' + arg2);
+        callback(null, '3');
+    },
+    function (arg1, callback) {
+        console.log('Third Step --> ' + arg1);
+        callback(null, 'final result');
+    }
+], function (err, result) {
+    console.log('Main Callback --> ' + result);
+});
+
+console.log('Program End');
+
+/*series model*/
+
+//var async = require('async');
+async.series([
+    function (callback) {
+        console.log('First Step --> ');
+        callback(null, '1');
+    },
+    function (callback) {
+        console.log('Second Step --> ');
+        callback(null, '2');
+    }
+],
+function (err, result) {
+    console.log(result);
+});
+
+console.log('Program End');
+
+/*parallel model*/
+
+/*var mongojs=require('mongojs');
+var db=mongojs('mydb',['users','orders','products']);
+var async=require('async');*/
+
+var userHasActivity=function(user_id,cbk){
+  async.parallel(
+    {
+      orders:function(callback){
+        db.orders.count({userId:user_id},callback);
+      },
+      products:function(callback){
+        db.products.count({userId:user_id},callback);
+      }
+    },
+    function(err,results){
+      console.log(err,results); // err = null results = { orders: 140, products: 0 }
+      var act_count=results.orders+results.products;
+      cbk(err,act_count>0);
+    }
+  );
+}
+
+// usage example
+userHasActivity(req.params.id,function(err,hasActivity){
+    // todo: some logic
+});
+
